@@ -7,10 +7,11 @@ public class BirdScript : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
     public float flapStrength;
+    public LogicScript logic;
     // Start is called before the first frame update
     void Start()
     {
-        
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
     // Update is called once per frame
@@ -27,18 +28,19 @@ public class BirdScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        //shows game over
+        
         // Reset the game when a collision occurs
+      
         if (collision.gameObject.layer == 6)
         {
-            ResetGame();
+            Destroy(gameObject);
+            logic.showGameOverText();
+            
         }
         
+
     }
 
-    void ResetGame()
-    {
-        // Add code to reset your game here
-        // For example, you can reload the scene or reset player position
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);// transform.position = initialPosition;
-    }
+
 }
